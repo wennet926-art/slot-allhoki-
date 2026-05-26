@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💸 PENARIKAN DANA - ALL HOKI SLOT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); min-height: 100vh;}
+    </style>
+</head>
+<body class="text-white">
+
+    <div class="container mx-auto px-4 py-8 max-w-md">
+        <!-- Header -->
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold text-yellow-400 flex items-center justify-center gap-2">
+                <i class="fa fa-money"></i> PENARIKAN DANA
+            </h1>
+            <p class="text-red-300">Saldo Anda: Rp <span id="saldoUser">0</span></p>
+        </div>
+
+        <!-- Form WD -->
+        <div class="bg-black/60 rounded-2xl p-6 shadow-2xl border-2 border-red-500">
+            <form id="formWD">
+                <!-- Pilih Tujuan -->
+                <div class="mb-4">
+                    <label class="block text-sm mb-2 text-red-300">Tujuan Pengiriman</label>
+                    <select id="tujuan" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-red-500/50 focus:outline-none focus:border-red-400" required>
+                        <option value="">-- Pilih Tujuan --</option>
+                        <option value="DANA">DANA</option>
+                        <option value="OVO">OVO</option>
+                        <option value="GOPAY">GOPAY</option>
+                        <option value="SHOPEEPAY">SHOPEEPAY</option>
+                        <option value="BCA">Bank BCA</option>
+                        <option value="BRI">Bank BRI</option>
+                    </select>
+                </div>
+
+                <!-- Nomor Akun -->
+                <div class="mb-4">
+                    <label class="block text-sm mb-2 text-red-300">Nomor / Rekening Tujuan</label>
+                    <input type="text" id="nomorTujuan" placeholder="Masukkan nomor Anda" 
+                        class="w-full px-4 py-3 rounded-lg bg-white/10 border border-red-500/50 focus:outline-none focus:border-red-400" required>
+                </div>
+
+                <!-- Atas Nama -->
+                <div class="mb-4">
+                    <label class="block text-sm mb-2 text-red-300">Atas Nama</label>
+                    <input type="text" id="atasNama" placeholder="Nama Pemilik Akun" 
+                        class="w-full px-4 py-3 rounded-lg bg-white/10 border border-red-500/50 focus:outline-none focus:border-red-400" required>
+                </div>
+
+                <!-- Jumlah WD -->
+                <div class="mb-6">
+                    <label class="block text-sm mb-2 text-red-300">Jumlah Penarikan (Rp)</label>
+                    <input type="number" id="jumlahWD" min="50000" placeholder="Minimal Rp 50.000" 
+                        class="w-full px-4 py-3 rounded-lg bg-white/10 border border-red-500/50 focus:outline-none focus:border-red-400" required>
+                </div>
+
+                <!-- Tombol Kirim -->
+                <button type="submit" class="w-full bg-gradient-to-r from-red-500 to-rose-600 py-3 rounded-lg font-bold text-lg hover:scale-[1.02] transition shadow-lg">
+                    💸 AJUKAN PENARIKAN
+                </button>
+            </form>
+        </div>
+
+        <!-- Tombol Kembali -->
+        <div class="text-center mt-6">
+            <a href="index.html" class="text-yellow-400 hover:underline">← Kembali ke Permainan</a>
+        </div>
+    </div>
+
+    <script src="akun.js"></script>
+    <script>
+        cekLogin();
+        let saldoSekarang = parseInt(ambilSaldo());
+        document.getElementById('saldoUser').innerText = saldoSekarang.toLocaleString('id-ID');
+
+        document.getElementById('formWD').addEventListener('submit', function(e){
+            e.preventDefault();
+            const jumlah = parseInt(document.getElementById('jumlahWD').value);
+
+            // Cek Saldo Cukup?
+            if(jumlah > saldoSekarang){
+                alert('❌ Saldo tidak cukup!');
+                return;
+            }
+            if(jumlah < 50000){
+                alert('❌ Minimal penarikan Rp 50.000!');
+                return;
+            }
+
+            // Kurangi Saldo
+            let saldoBaru = saldoSekarang - jumlah;
+            ubahSaldo(saldoBaru);
+
+            // Simpan ke Riwayat
+            simpanRiwayat('PENARIKAN', -jumlah, document.getElementById('tujuan').value);
+
+            alert(`✅ Permintaan Berhasil!\nRp ${jumlah.toLocaleString()} sedang diproses.\nSisa saldo: Rp ${saldoBaru.toLocaleString()}`);
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
