@@ -38,3 +38,27 @@ function simpanRiwayat(jenis, nilai, metode){
     });
     localStorage.setItem('riwayatTransaksi', JSON.stringify(riwayat));
 }
+// === SISTEM LIVE CHAT ===
+function ambilPesanChat(){
+    return JSON.parse(localStorage.getItem('liveChat') || '[]');
+}
+
+function kirimPesanChat(isiPesan){
+    const namaPengirim = localStorage.getItem('nama') || 'Tamu';
+    const waktu = new Date().toLocaleString('id-ID');
+    
+    const pesanBaru = {
+        nama: namaPengirim,
+        isi: isiPesan,
+        jam: waktu
+    };
+
+    const daftarPesan = ambilPesanChat();
+    daftarPesan.push(pesanBaru);
+
+    // Batasi cuma 50 pesan terakhir biar tidak penuh
+    if(daftarPesan.length > 50) daftarPesan.shift();
+
+    localStorage.setItem('liveChat', JSON.stringify(daftarPesan));
+}
+
