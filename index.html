@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎰 ALL HOKI SLOT DEMO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="akun.js"></script> <!-- WAJIB ADA -->
+    <style>
+        body {background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); min-height: 100vh;}
+        .reel {width: 100px; height: 120px; border: 3px solid gold; border-radius:10px; background:white; display:flex; align-items:center; justify-content:center; font-size:40px; font-weight:bold; margin:0 5px; box-shadow:0 0 15px gold;}
+        .berputar {animation: putar 0.1s infinite linear;}
+        @keyframes putar {0% {transform:rotateX(0deg);} 100% {transform:rotateX(360deg);}}
+        .hasil-menang {animation: berkedip 0.5s infinite;}
+        @keyframes berkedip {0%,100% {background:#22c55e;} 50% {background:#f59e0b;}}
+    </style>
+</head>
+<body class="text-white">
+
+    <!-- CEK LOGIN OTOMATIS -->
+    <script>cekLogin();</script>
+
+    <!-- MENU ATAS -->
+    <div class="bg-black/40 p-3 shadow-md">
+        <div class="container mx-auto max-w-3xl flex justify-between items-center">
+            <a href="profil.html" class="text-yellow-400 font-bold flex items-center gap-2">
+                <i class="fa fa-user"></i> <span id="namaUser"></span>
+            </a>
+            <div class="flex gap-2">
+                <a href="deposit.html" class="bg-green-600 px-3 py-1 rounded text-sm font-bold">💎 Deposit</a>
+                <a href="wd.html" class="bg-red-600 px-3 py-1 rounded text-sm font-bold">💸 WD</a>
+                <button onclick="keluarAkun()" class="bg-gray-700 px-3 py-1 rounded text-sm">🚪</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="text-center py-4 bg-black/50 shadow-lg">
+        <h1 class="text-[clamp(2rem,5vw,3rem)] font-bold text-yellow-400 flex items-center justify-center gap-3">
+            <i class="fa fa-gem"></i> ALL HOKI SLOT <span class="text-sm bg-red-600 px-2 py-1 rounded">DEMO</span>
+        </h1>
+        <p class="text-yellow-200">Permainan hiburan saja • Tanpa uang asli</p>
+    </div>
+
+    <!-- AREA MESIN SLOT -->
+    <div class="container mx-auto px-4 mt-6 max-w-3xl">
+        <div class="bg-black/60 rounded-3xl p-8 shadow-2xl border-2 border-yellow-500">
+            
+            <!-- TAMPILAN GULUNGAN -->
+            <div class="flex justify-center items-center mb-8">
+                <div id="r1" class="reel">🍒</div>
+                <div id="r2" class="reel">🍋</div>
+                <div id="r3" class="reel">⭐</div>
+            </div>
+
+            <!-- INFO SALDO & HASIL -->
+            <div class="grid grid-cols-2 gap-4 text-center mb-6">
+                <div class="bg-green-700/50 rounded-xl p-3">
+                    <p class="text-sm">SALDO ANDA</p>
+                    <p id="saldo" class="text-2xl font-bold">0</p>
+                </div>
+                <div id="notif" class="bg-blue-700/50 rounded-xl p-3">
+                    <p class="text-sm">STATUS</p>
+                    <p class="text-lg font-bold">SIAP MAINKAN</p>
+                </div>
+            </div>
+
+            <!-- TOMBOL PUTAR -->
+            <div class="text-center">
+                <button id="tombolPutar" onclick="mulaiPutar()" 
+                    class="bg-gradient-to-r from-yellow-500 to-orange-600 text-black font-bold py-4 px-12 rounded-full text-xl hover:scale-105 transition shadow-lg border-2 border-yellow-300">
+                    🎰 PUTAR Rp 500
+                </button>
+            </div>
+
+            <!-- DAFTAR PEMBAYARAN -->
+            <div class="mt-8 text-sm text-yellow-200/80">
+                <p class="font-bold mb-2">💰 DAFTAR KEMENANGAN:</p>
+                <p>🍒🍒🍒 = ×10 | 🍋🍋🍋 = ×5 | ⭐⭐⭐ = ×20 | 7️⃣7️⃣7️⃣ = ✅ JACKPOT ×50</p>
+            </div>
+
+        </div>
+
+        <!-- TOMBOL KE SITUS UTAMA -->
+        <div class="text-center mt-6">
+            <a href="https://allhokiwen.net" class="text-yellow-400 hover:underline">
+                ← Kembali ke Halaman Utama
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // TAMPILKAN NAMA PENGGUNA & SALDO
+        document.getElementById('namaUser').innerText = localStorage.getItem('nama');
+        let saldo = parseInt(ambilSaldo());
+        ubahSaldo(saldo); // Panggil fungsi dari akun.js
+
+        // SIMBOL & NILAI
+        const simbol = ['🍒','🍋','⭐','🍇','🔔','7️⃣'];
+        const nilaiTaruhan = 500;
+        let sedangBerputar = false;
+
+        // MULAI PUTAR
+        function mulaiPutar(){
+            if(sedangBerputar) return;
+
+            // CEK SALDO CUKUP?
+            if(saldo < nilaiTaruhan){
+                document.getElementById('notif').innerHTML = `<span class="text-red-400">❌ SALDO HABIS! <a href="deposit.html" class="underline">ISI SEKARANG</a></span>`;
+                return;
+            }
+
+            sedangBerputar = true;
+            saldo -= nilaiTaruhan;
+            ubahSaldo(saldo); // Simpan perubahan saldo ke akun
+            document.getElementById('notif').innerHTML = `<span>🔄 SEDANG BERPUTAR...</span>`;
+
+            const r1 = document.getElementById('r1');
+            const r2 = document.getElementById('r2');
+            const r3 = document.getElementById('r3');
+
+            // TAMBAH EFEK BERPUTAR
+            r1.classList.add('berputar');
+            r2.classList.add('berputar');
+            r3.classList.add('berputar');
+
+            // BERHENTI & TAMPILKAN HASIL SETELAH 2 DETIK
+            setTimeout(() => {
+                r1.classList.remove('berputar');
+                r2.classList.remove('berputar');
+                r3.classList.remove('berputar');
+
+                // PILIH SIMBOL ACAK
+                const s1 = simbol[Math.floor(Math.random()*simbol.length)];
+                const s2 = simbol[Math.floor(Math.random()*simbol.length)];
+                const s3 = simbol[Math.floor(Math.random()*simbol.length)];
+
+                r1.innerText = s1;
+                r2.innerText = s2;
+                r3.innerText = s3;
+
+                // CEK MENANG / KALAH
+                cekMenang(s1,s2,s3);
+                sedangBerputar = false;
+            }, 2000);
+        }
+
+        // LOGIKA KEMENANGAN
+        function cekMenang(a,b,c){
+            let menang = 0;
+
+            if(a === b && b === c){
+                if(a === '7️⃣') menang = nilaiTaruhan * 50;
+                else if(a === '⭐') menang = nilaiTaruhan * 20;
+                else if(a === '🍒') menang = nilaiTaruhan * 10;
+                else if(a === '🍋') menang = nilaiTaruhan * 5;
+                else menang = nilaiTaruhan * 3;
+            }
+
+            // TAMPILKAN HASIL
+            if(menang > 0){
+                saldo += menang;
+                ubahSaldo(saldo); // Simpan kemenangan ke akun
+                document.getElementById('notif').innerHTML = `<span class="text-yellow-300 font-bold">✅ MENANG Rp ${menang.toLocaleString()} !</span>`;
+                document.getElementById('notif').classList.add('hasil-menang');
+                setTimeout(()=> document.getElementById('notif').classList.remove('hasil-menang'),3000);
+            } else {
+                document.getElementById('notif').innerHTML = `<span class="text-gray-300">❌ BELUM BERUNTUNG</span>`;
+            }
+        }
+    </script>
+
+</body>
+</html>
