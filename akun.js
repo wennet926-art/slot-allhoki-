@@ -100,3 +100,10 @@ function perlindunganAdmin() {
         window.location.href = "index.html";
     }
 }
+<script>
+function scrollToProvider() {
+    document.querySelector('.provider-section').scrollIntoView({
+        behavior: 'smooth'
+    });
+}
+</script>
