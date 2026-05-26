@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔐 LOGIN - ALL HOKI SLOT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); min-height: 100vh;}
+    </style>
+</head>
+<body class="text-white flex items-center justify-center">
+
+    <div class="w-full max-w-md p-6">
+        <!-- LOGO -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-yellow-400 flex items-center justify-center gap-2">
+                <i class="fa fa-gem"></i> ALL HOKI
+            </h1>
+            <p class="text-yellow-200/70">Silakan masuk ke akun kamu</p>
+        </div>
+
+        <!-- KOTAK LOGIN -->
+        <div class="bg-black/60 rounded-2xl p-8 shadow-2xl border-2 border-yellow-500">
+            <h2 class="text-2xl font-bold text-center mb-6">🔐 LOGIN AKUN</h2>
+
+            <form id="formLogin">
+                <!-- Username -->
+                <div class="mb-4">
+                    <label class="block text-sm mb-1 text-yellow-300">Username</label>
+                    <input type="text" id="userLogin" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-yellow-500/50 focus:outline-none focus:border-yellow-400" placeholder="Masukkan Username" required>
+                </div>
+
+                <!-- Kata Sandi -->
+                <div class="mb-6">
+                    <label class="block text-sm mb-1 text-yellow-300">Kata Sandi</label>
+                    <input type="password" id="passLogin" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-yellow-500/50 focus:outline-none focus:border-yellow-400" placeholder="Masukkan Kata Sandi" required>
+                </div>
+
+                <!-- Tombol Masuk -->
+                <button type="submit" class="w-full bg-gradient-to-r from-yellow-500 to-orange-600 py-3 rounded-lg font-bold text-lg hover:scale-[1.02] transition shadow-lg text-black">
+                    🚀 MASUK SEKARANG
+                </button>
+            </form>
+
+            <!-- Link Daftar -->
+            <p class="text-center mt-6 text-sm text-gray-300">
+                Belum punya akun? <a href="daftar.html" class="text-green-400 hover:underline font-bold">Daftar di sini</a>
+            </p>
+        </div>
+
+        <!-- Lupa Sandi -->
+        <div class="text-center mt-4">
+            <a href="#" class="text-yellow-400 hover:underline text-sm">Lupa kata sandi?</a>
+        </div>
+    </div>
+
+    <script src="akun.js"></script>
+    <script>
+        document.getElementById('formLogin').addEventListener('submit', function(e){
+            e.preventDefault();
+            const userInput = document.getElementById('userLogin').value;
+            const passInput = document.getElementById('passLogin').value;
+
+            // Ambil data tersimpan
+            const userAsli = localStorage.getItem('user');
+            const passAsli = localStorage.getItem('pass');
+
+            if(userInput === userAsli && passInput === passAsli){
+                alert('✅ Berhasil Masuk! Selamat Bermain, '+ localStorage.getItem('nama'));
+                // Simpan status login
+                localStorage.setItem('loginStatus', 'aktif');
+                // Pindah ke Permainan
+                window.location.href = 'index.html';
+            } else {
+                alert('❌ Username atau Kata Sandi SALAH!');
+            }
+        });
+    </script>
+</body>
+</html>
