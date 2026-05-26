@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔐 LOGIN ADMIN - ALL HOKI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {background: linear-gradient(135deg, #2b0000, #5a0000, #900000); min-height: 100vh;}
+    </style>
+</head>
+<body class="flex items-center justify-center text-white">
+
+    <div class="w-full max-w-md p-6">
+        <div class="bg-black/70 rounded-2xl p-8 shadow-2xl border-2 border-yellow-500/50">
+            <div class="text-center mb-6">
+                <i class="fa fa-user-secret text-yellow-400 text-5xl mb-2"></i>
+                <h1 class="text-2xl font-bold text-yellow-400">LOGIN ADMIN</h1>
+                <p class="text-gray-400 text-sm">Area Khusus Pemilik Situs</p>
+            </div>
+
+            <div id="pesanError" class="text-red-400 text-sm text-center mb-4 hidden">❌ Nama pengguna atau kata sandi salah!</div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm mb-1 text-gray-300">Username Admin</label>
+                    <input type="text" id="userAdmin" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-yellow-500/30 focus:outline-none focus:border-yellow-400 text-white" placeholder="Masukkan nama pengguna...">
+                </div>
+                <div>
+                    <label class="block text-sm mb-1 text-gray-300">Kata Sandi</label>
+                    <input type="password" id="passAdmin" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-yellow-500/30 focus:outline-none focus:border-yellow-400 text-white" placeholder="Masukkan kata sandi...">
+                </div>
+
+                <button id="tombolMasuk" class="w-full bg-yellow-500 hover:bg-yellow-400 text-black font-bold py-3 rounded-lg transition mt-2">
+                    ✅ MASUK SEBAGAI ADMIN
+                </button>
+
+                <a href="index.html" class="block text-center text-yellow-400 hover:underline text-sm mt-2">← Kembali ke Halaman Utama</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="akun.js"></script>
+    <script>
+        // Kalau sudah login, langsung masuk ke dashboard
+        if(cekAdmin()) window.location.href = "admin-dashboard.html";
+
+        const tombol = document.getElementById("tombolMasuk");
+        const pesan = document.getElementById("pesanError");
+
+        tombol.addEventListener("click", () => {
+            const u = document.getElementById("userAdmin").value.trim();
+            const p = document.getElementById("passAdmin").value.trim();
+
+            if(loginAdmin(u, p)) {
+                window.location.href = "admin-dashboard.html";
+            } else {
+                pesan.classList.remove("hidden");
+                setTimeout(() => pesan.classList.add("hidden"), 3000);
+            }
+        });
+
+        // Tekan Enter buat masuk
+        document.addEventListener("keypress", e => {
+            if(e.key === "Enter") tombol.click();
+        });
+    </script>
+</body>
+</html>
