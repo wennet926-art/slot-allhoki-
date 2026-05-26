@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📝 DAFTAR AKUN - ALL HOKI SLOT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); min-height: 100vh;}
+    </style>
+</head>
+<body class="text-white flex items-center justify-center">
+
+    <div class="w-full max-w-md p-6">
+        <!-- LOGO -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-yellow-400 flex items-center justify-center gap-2">
+                <i class="fa fa-gem"></i> ALL HOKI
+            </h1>
+            <p class="text-yellow-200/70">Buat akun untuk mulai bermain</p>
+        </div>
+
+        <!-- KOTAK FORM -->
+        <div class="bg-black/60 rounded-2xl p-8 shadow-2xl border-2 border-yellow-500">
+            <h2 class="text-2xl font-bold text-center mb-6">📝 DAFTAR AKUN BARU</h2>
+
+            <form id="formDaftar">
+                <!-- Nama Lengkap -->
+                <div class="mb-4">
+                    <label class="block text-sm mb-1 text-yellow-300">Nama Lengkap</label>
+                    <input type="text" id="nama" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-yellow-500/50 focus:outline-none focus:border-yellow-400" placeholder="Masukkan nama kamu" required>
+                </div>
+
+                <!-- Username -->
+                <div class="mb-4">
+                    <label class="block text-sm mb-1 text-yellow-300">Username</label>
+                    <input type="text" id="user" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-yellow-500/50 focus:outline-none focus:border-yellow-400" placeholder="Buat nama pengguna" required>
+                </div>
+
+                <!-- Nomor HP/WA -->
+                <div class="mb-4">
+                    <label class="block text-sm mb-1 text-yellow-300">Nomor WhatsApp</label>
+                    <input type="number" id="hp" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-yellow-500/50 focus:outline-none focus:border-yellow-400" placeholder="Contoh: 0822xxxx" required>
+                </div>
+
+                <!-- Kata Sandi -->
+                <div class="mb-6">
+                    <label class="block text-sm mb-1 text-yellow-300">Kata Sandi</label>
+                    <input type="password" id="pass" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-yellow-500/50 focus:outline-none focus:border-yellow-400" placeholder="Minimal 6 karakter" required>
+                </div>
+
+                <!-- Tombol Daftar -->
+                <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 py-3 rounded-lg font-bold text-lg hover:scale-[1.02] transition shadow-lg">
+                    ✅ DAFTAR SEKARANG
+                </button>
+            </form>
+
+            <!-- Link ke Login -->
+            <p class="text-center mt-6 text-sm text-gray-300">
+                Sudah punya akun? <a href="login.html" class="text-yellow-400 hover:underline font-bold">Masuk di sini</a>
+            </p>
+        </div>
+
+        <!-- Kembali ke Beranda -->
+        <div class="text-center mt-4">
+            <a href="index.html" class="text-yellow-400 hover:underline text-sm">← Kembali ke Halaman Utama</a>
+        </div>
+    </div>
+
+    <script src="akun.js"></script>
+    <script>
+        document.getElementById('formDaftar').addEventListener('submit', function(e){
+            e.preventDefault();
+            const nama = document.getElementById('nama').value;
+            const user = document.getElementById('user').value;
+            const hp = document.getElementById('hp').value;
+            const pass = document.getElementById('pass').value;
+
+            // Simpan ke Penyimpanan Browser
+            localStorage.setItem('nama', nama);
+            localStorage.setItem('user', user);
+            localStorage.setItem('hp', hp);
+            localStorage.setItem('pass', pass);
+            localStorage.setItem('saldo', '100000'); // Saldo awal Rp 100.000
+
+            alert('🎉 Pendaftaran Berhasil! Silakan Login.');
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
