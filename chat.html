@@ -45,6 +45,11 @@
     <script>
         cekLogin(); // Wajib login dulu baru bisa chat
         const namaUser = localStorage.getItem('nama');
+// Kalau admin, tampilkan nama khusus
+if(cekAdmin()) {
+    document.title = "👑 CHAT ADMIN - ALL HOKI";
+}
+
         const wadah = document.getElementById('wadahPesan');
         const input = document.getElementById('inputPesan');
 
