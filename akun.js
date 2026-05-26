@@ -38,6 +38,7 @@ function simpanRiwayat(jenis, nilai, metode){
     });
     localStorage.setItem('riwayatTransaksi', JSON.stringify(riwayat));
 }
+
 // === SISTEM LIVE CHAT ===
 function ambilPesanChat(){
     return JSON.parse(localStorage.getItem('liveChat') || '[]');
@@ -62,3 +63,40 @@ function kirimPesanChat(isiPesan){
     localStorage.setItem('liveChat', JSON.stringify(daftarPesan));
 }
 
+// === SISTEM ADMIN / PEMILIK ===
+// Data Admin (UBAH SENDIRI SESUAI KEBUTUHAN)
+const DATA_ADMIN = {
+    username: "admin_allhoki",
+    password: "Hoki2026!",
+    nama: "👑 ADMIN PEMILIK"
+};
+
+// Cek apakah yang login adalah Admin
+function cekAdmin() {
+    return localStorage.getItem("adminLogin") === "OK";
+}
+
+// Fungsi Login Admin
+function loginAdmin(user, pass) {
+    if(user === DATA_ADMIN.username && pass === DATA_ADMIN.password) {
+        localStorage.setItem("adminLogin", "OK");
+        localStorage.setItem("nama", DATA_ADMIN.nama);
+        return true;
+    }
+    return false;
+}
+
+// Keluar dari akun Admin
+function keluarAdmin() {
+    localStorage.removeItem("adminLogin");
+    localStorage.removeItem("nama");
+    window.location.href = "index.html";
+}
+
+// Lindungi halaman khusus Admin
+function perlindunganAdmin() {
+    if(!cekAdmin()) {
+        alert("❌ AKSES DITOLAK! Hanya Admin yang boleh masuk sini!");
+        window.location.href = "index.html";
+    }
+}
